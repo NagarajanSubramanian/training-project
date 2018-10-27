@@ -1,4 +1,5 @@
 .project
+package-lock.json
 /bin
 
 node_modules
