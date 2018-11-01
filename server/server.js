@@ -1,11 +1,17 @@
 const express = require('express');
 const server = express();
 
-//Static folder
-server.use(express.static(''));
+/* Routers import */
+const userControlRouter = require('./src/routers/userControlRouter.js');
+
+server.listen(2020);
+
+/* Static folder */
+//server.use(express.static(''));
 
 server.get('/', function(req, res){
   res.send('Node Server');
 });
 
-server.listen(2020);
+/* Config Routers Middleware */
+server.use('/user',userControlRouter);
