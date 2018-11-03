@@ -26,13 +26,22 @@ const styles = theme => ({
   },
   divCenter: {
 	  textAlign: 'center',
+	  boxSizing: 'border-box',
+	  width: '300px',
+	  height: '195px',
+	  background: '#fff',
+	  padding: '10px',
+	  WebkitBoxShadow:'0 5px 10px 0px rgba(0, 0, 0, 0.1)'
   },
   errorLabel: {
 	fontFamily: '',
 	color: '#FF0000',
   },
-  background : {
-	backgroundImage: 'url("DSC00229.JPG")',  
+  centerAlignDiv: {
+	  height: '100%',
+	  display: 'flex',
+	  justifyContent: 'center',
+	  alignItems: 'center',
   }
 });
 
@@ -93,7 +102,7 @@ class Login extends React.Component{
   render(){
 	const { classes } = this.props;
 	return(
-	  <div>
+	  <div className={classNames(classes.centerAlignDiv)}>
 	  <div className={classNames(classes.divCenter)}>
 	  <div>
 	  <FormControl className={classNames(classes.margin, classes.textField)}>
@@ -109,7 +118,7 @@ class Login extends React.Component{
 	  <div>
 		<FormControl className={classNames(classes.margin, classes.textField)}>
 		  <InputLabel htmlFor="adornment-password">Password</InputLabel>
-		  <Input id="adornment-password" ref={(Input) => {this.check = Input}}
+		  <Input id="adornment-password" ref={(data) => {this.data = data}}
 			  type={this.state.showPassword ? 'text' : 'password'}
 			  value={this.state.password}
 	 	  onKeyPress={(e)=> this.handleKeyPress(e)}
