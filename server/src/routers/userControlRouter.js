@@ -1,8 +1,6 @@
 const express = require('express');
 const userControlRouter = express.Router();
-const { dbClient } = global;
 
-console.log('2'); 
 userControlRouter.post('/login', function (req, res) {
 	res.send('Router');
 });
@@ -16,7 +14,6 @@ userControlRouter.put('/reset-password', function (req, res) {
 //});
 
 userControlRouter.get('/', function (req, res) {
-	console.log('--------------',dbClient);
 	res.send('Router Get ');
 });
 
