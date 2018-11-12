@@ -90,7 +90,7 @@ class Login extends React.Component{
 		} else if(!password){
 			this.setState({error: 'Enter password'});
 		} else {
-			if(!passwordregex.test(passwordregex)){
+			if(!passwordregex.test(password)){
 				this.setState({error:'Password contains error'})
 			} else {
 				this.setState({error:''})
