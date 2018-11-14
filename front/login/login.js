@@ -9,6 +9,7 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
+import Snackbar from '@material-ui/core/Snackbar';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
@@ -55,6 +56,9 @@ class Login extends React.Component{
 		password: '',
 		showPassword: false,
 		error: '',
+		open: false,
+	    vertical: 'bottom',
+	    horizontal: 'right',
 	};
   this.handleChange = this.handleChange.bind(this);
   this.handleClickShowPassword = this.handleClickShowPassword.bind(this);
@@ -83,7 +87,7 @@ class Login extends React.Component{
   }
   
   checkuserpassvalue(){
-	  const passwordregex = /^[A-Za-z\d@#!$%?&]{8,}$/;
+	  const passwordregex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
 	  const {username, password} = this.state;
 		if(!username){
 			this.setState({error: 'Enter userName'});
@@ -94,12 +98,16 @@ class Login extends React.Component{
 				this.setState({error:'Password contains error'})
 			} else {
 				this.setState({error:''})
+				this.setState({ open: true});
+				var data = this;
+				setTimeout(function(){ data.setState({ open: false}); }, 3000);
 			}
 		}
   }
 
   render(){
 		const { classes } = this.props;
+		const {vertical, horizontal, open} = this.state;
 		return(
 	  	<div className={classNames(classes.centerAlignDiv)}>
 	  		<div className={classNames(classes.divCenter)}>
@@ -134,6 +142,16 @@ class Login extends React.Component{
 		  		<div>
 		  			<Button size ="small" variant="contained" color="primary" className={classes.button}
 		  				onClick={(e) => this.checkCredential(e)}> Submit </Button>
+		  		</div>
+		  		<div>
+		  		<Snackbar
+		          anchorOrigin={{ vertical, horizontal }}
+		          open={open}
+		          ContentProps={{
+		            'aria-describedby': 'message-id',
+		          }}
+		          message={<span id="message-id">Login Successfully</span>}
+		        />
 		  		</div>
       	</div>
     	</div>
