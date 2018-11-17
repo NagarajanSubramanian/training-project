@@ -48,115 +48,110 @@ const styles = theme => ({
 
 
 class Login extends React.Component{
-	constructor(props) {
-	  super(props);
-	    this.data = React.createRef();
-  this.state = {
-  	username: '',
-		password: '',
-		showPassword: false,
-		error: '',
-		open: false,
-	    vertical: 'bottom',
-	    horizontal: 'right',
+  constructor(props) {
+    super(props);
+	this.data = React.createRef();
+    this.state = {
+  	  username: '',
+	  password: '',
+	  showPassword: false,
+	  error: '',
+	  open: false,
+	  vertical: 'bottom',
+	  horizontal: 'right',
 	};
-  this.handleChange = this.handleChange.bind(this);
-  this.handleClickShowPassword = this.handleClickShowPassword.bind(this);
-  this.handleInputChange = this.handleInputChange.bind(this);
-  this.checkCredential = this.checkCredential.bind(this);
-  this.handleKeyPress = this.handleKeyPress.bind(this);
-	};
-	checkCredential(){
-		this.checkuserpassvalue();
-	}
-	handleChange(e) {
-	  this.setState({ password: e.target.value });
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClickShowPassword = this.handleClickShowPassword.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.checkCredential = this.checkCredential.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  };
+  checkCredential() {
+    this.checkuserpassvalue();
+  }
+  handleChange(e) {
+	this.setState({ password: e.target.value });
   };
   handleClickShowPassword(e) {
-		this.setState({ showPassword: !this.state.showPassword });
+	this.setState({ showPassword: !this.state.showPassword });
   };
   
   handleInputChange(e) {
-	  this.setState({username: e.target.value});
+    this.setState({username: e.target.value});
   };
   
-  handleKeyPress(e){
-	  if(e.key === 'Enter'){
-		  this.checkuserpassvalue();
-	  }
+  handleKeyPress(e) {
+    if(e.key === 'Enter'){
+	  this.checkuserpassvalue();
+	}
   }
   
-  checkuserpassvalue(){
-	  const passwordregex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
-	  const {username, password} = this.state;
-		if(!username){
-			this.setState({error: 'Enter userName'});
-		} else if(!password){
-			this.setState({error: 'Enter password'});
-		} else {
-			if(!passwordregex.test(password)){
-				this.setState({error:'Password contains error'})
-			} else {
-				this.setState({error:''})
-				this.setState({ open: true});
-				var data = this;
-				setTimeout(function(){ data.setState({ open: false}); }, 3000);
-			}
-		}
+  checkuserpassvalue() {
+    const passwordregex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+	const {username, password} = this.state;
+	if(!username) {
+	  this.setState({error: 'Enter userName'});
+	} else if(!password) {
+	  this.setState({error: 'Enter password'});
+	} else {
+	  if(!passwordregex.test(password)){
+	    this.setState({error:'Password contains error'})
+	  } else {
+		this.setState({error:''})
+		this.setState({ open: true});
+		const data = this;
+		setTimeout(function(){ data.setState({ open: false}); }, 3000);
+	  }
+	}
   }
 
-  render(){
-		const { classes } = this.props;
-		const {vertical, horizontal, open} = this.state;
-		return(
-	  	<div className={classNames(classes.centerAlignDiv)}>
-	  		<div className={classNames(classes.divCenter)}>
-	  			<div>
-	  				<FormControl className={classNames(classes.margin, classes.textField)}>
-	  					<InputLabel htmlFor="adornment-username">Username or Email</InputLabel>
-							<Input id="adornment-username" type= 'text' autoFocus value={this.state.username} 
-								onChange={(e)=>this.handleInputChange(e)} onKeyPress={(e)=> this.handleKeyPress(e)}
-							/>
-						</FormControl>
-	  			</div>
-	  			<div>
-						<FormControl className={classNames(classes.margin, classes.textField)}  ref={this.data}>
-		  				<InputLabel htmlFor="adornment-password">Password</InputLabel>
-		  				<Input id="adornment-password" type={this.state.showPassword ? 'text' : 'password'}
-			  				value={this.state.password} onKeyPress={(e)=> this.handleKeyPress(e)}
-			  				onChange={(e)=>this.handleChange(e)}
-			  				endAdornment={
-									<InputAdornment position="end">
-				  					<IconButton aria-label="Toggle password visibility"
-											onClick={()=>this.handleClickShowPassword()}>
-											{this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-				  					</IconButton>
-									</InputAdornment>
-								  }
-							/>
-						</FormControl>
-		  		</div>
-		  		<div>
-		  			<label className={classes.errorLabel}>{this.state.error}</label>
-		  		</div>
-		  		<div>
-		  			<Button size ="small" variant="contained" color="primary" className={classes.button}
-		  				onClick={(e) => this.checkCredential(e)}> Submit </Button>
-		  		</div>
-		  		<div>
-		  		<Snackbar
-		          anchorOrigin={{ vertical, horizontal }}
-		          open={open}
-		          ContentProps={{
-		            'aria-describedby': 'message-id',
-		          }}
+  render() {
+    const { classes } = this.props;
+	const {vertical, horizontal, open } = this.state;
+	  return(
+	    <div className={classNames(classes.centerAlignDiv)}>
+	  	  <div className={classNames(classes.divCenter)}>
+	  	    <div>
+	  		  <FormControl className={classNames(classes.margin, classes.textField)}>
+	  		    <InputLabel htmlFor="adornment-username">Username or Email</InputLabel>
+				<Input id="adornment-username" type= 'text' autoFocus value={this.state.username} 
+				  onChange={(e)=>this.handleInputChange(e)} onKeyPress={(e)=> this.handleKeyPress(e)}/>
+				</FormControl>
+	  		</div>
+	  	    <div>
+			  <FormControl className={classNames(classes.margin, classes.textField)}  ref={this.data}>
+		  	    <InputLabel htmlFor="adornment-password">Password</InputLabel>
+		  		<Input id="adornment-password" type={this.state.showPassword ? 'text' : 'password'}
+			  	  value={this.state.password} onKeyPress={(e)=> this.handleKeyPress(e)}
+			  	  onChange={(e)=>this.handleChange(e)}
+			  	  endAdornment={
+		  			<InputAdornment position="end">
+				      <IconButton aria-label="Toggle password visibility"
+					    onClick={()=>this.handleClickShowPassword()}>
+					    {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+				  	  </IconButton>
+					</InputAdornment>
+				  }/>
+			  </FormControl>
+		  	</div>
+		  	<div>
+		  	  <label className={classes.errorLabel}>{this.state.error}</label>
+		  	</div>
+		  	<div>
+		  	  <Button size ="small" variant="contained" color="primary" className={classes.button}
+		  		onClick={(e) => this.checkCredential(e)}> Submit </Button>
+		  	</div>
+		  	<div>
+		  	  <Snackbar  anchorOrigin={{ vertical, horizontal }}
+		          open={open} ContentProps={{
+		            'aria-describedby': 'message-id',}}
 		          message={<span id="message-id">Login Successfully</span>}
-		        />
-		  		</div>
-      	</div>
+		       />
+		  	</div>
+      	  </div>
     	</div>
-		);
-	}
+	  );
+  }
 }
 
 Login.propTypes = {
